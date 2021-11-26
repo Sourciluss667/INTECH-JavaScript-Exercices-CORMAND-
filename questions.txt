@@ -1,0 +1,17 @@
+Que retourne : !!!(5 + [,3,,,]) - 020
+
+1. -20
+2. 6
+3. false
+4. -16 (bonne reponse)
+
+Qu'affichera le console.log :
+
+console.log(variable);
+let variable;
+variable = 42;
+
+1. Il y aura une erreur 'variable is not defined'
+2. Undefined
+3. 42
+4. Aucune de ces réponses (bonne reponse)
