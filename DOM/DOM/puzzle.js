@@ -83,12 +83,18 @@ function turnCanvasOnInit(canvas, ctx, x, y) {
 }
 
 async function resolve() {
-    // simulate click to resolve puzzle
-    for (let i = 0; i < this.canvasArray.length; i++) {
-        while (this.canvasArray[i].degrees !== 0) {
-            await sleep(169);
-            turnCanvasOnClick(this.canvasArray[i].id.split('-')[1], this.canvasArray[i].id.split('-')[2])();
+    function* clickGenerator(canvasArray) {
+        for (let i = 0; i < canvasArray.length; i++) {
+            while (canvasArray[i].degrees !== 0) {
+                yield canvasArray[i].onclick();
+            }
         }
+    }
+
+    const click = clickGenerator(this.canvasArray);
+    while (checkWin() === false) {
+        await sleep(169);
+        click.next();
     }
 }
 
@@ -112,6 +118,8 @@ function checkWin() {
     if (win) {
         changeTitle('You win !', 'green');
     }
+
+    return win;
 }
 
 function changeTitle(str, color = 'black') {
